@@ -1,7 +1,7 @@
 import React from "react"
 import { Link, graphql } from "gatsby"
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
-
+import Img from "gatsby-image"
 import Bio from "../components/bio"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
@@ -14,6 +14,7 @@ const BlogPostContentfulTemplate = ({ data, location }) => {
   return (
     <Layout location={location} title={siteTitle}>
       <SEO title={post.title} description={post.description || post.excerpt} />
+      <Img fluid={post.image.fluid} />
       <article
         className="blog-post"
         itemScope
@@ -73,6 +74,11 @@ export const pageQuery = graphql`
       title
       subtitle
       author
+      image {
+        fluid {
+          ...GatsbyContentfulFluid
+        }
+      }
       content {
         raw
       }
